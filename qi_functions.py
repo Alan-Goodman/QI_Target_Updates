@@ -181,29 +181,8 @@ def QuasiIsodynamicResidual(vmec,snorms,weights=None,
             ################################################################
             ########################### STRETCH ############################
             ################################################################
-            pmax=50
-            pmin=15
-            def F_l():
-                R1 = (1 - Bl[0])
-                R2 = -Bl[-1]
-                x1 = (phisl - phisl[0]) / (phisl[-1] - phisl[0])
-                x1lp5 = x1 < 0.5
-                t1 = x1lp5 * R1*((np.cos(2*np.pi*x1) + 1) / 2)**pmax
-                t2 = (1 - x1lp5) * R2*((np.cos(2*np.pi*x1) + 1) / 2)**pmin
-                return t1 + t2
-            def F_r():
-                 R1 = 1 - Br[-1]
-                 R2 = -Br[0]
-                 x1 = (phisr - phisr[0]) / (phisr[-1] - phisr[0])
-                 x1lp5 = x1 < 0.5
-                 t1 = x1lp5 * R2*((np.cos(2*np.pi*x1) + 1) / 2)**pmin
-                 t2 = (1 - x1lp5) * R1*((np.cos(2*np.pi*x1) + 1) / 2)**pmax
-                 return t1 + t2
-            F_l = F_l()
-            F_r = F_r()
-            Bl = Bl + 1*F_l
-            Br = Br + 1*F_r
-            Bl = Bl[:-1]
+            Bl = Bmin + (Bl - Bl[-1]) * (Bmax - Bmin) / (Bl[0] - Bl[-1])
+            Br = Bmin + (Br - Br[0]) * (Bmax - Bmin) / (Br[-1] - Br[0])
 
             # The new (phi,B) fieldline
             Blr = 1*np.concatenate((Bl,Br))
