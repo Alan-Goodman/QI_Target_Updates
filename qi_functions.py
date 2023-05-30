@@ -185,7 +185,7 @@ def QuasiIsodynamicResidual(vmec,snorms,weights=None,
             Br = Bmin + (Br - Br[0]) * (Bmax - Bmin) / (Br[-1] - Br[0])
 
             # The new (phi,B) fieldline
-            Blr = 1*np.concatenate((Bl,Br))
+            Blr = 1*np.concatenate((Bl[:-1],Br))
 
             # Weights for measuring bounce distances
             wtf = UnivariateSpline(phis2D[:,ialpha], np.abs(Ba - Blr)**2)
