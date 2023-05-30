@@ -123,6 +123,8 @@ def QuasiIsodynamicResidual(vmec,snorms,weights=None,
         Bmin = np.min(B)
         Bmax = np.max(B)
         B = (B - Bmin) / (Bmax - Bmin)
+        Bmin = 0.0
+        Bmax = 1.0
         
         ################################################################
         ########################### SQUASH #############################
